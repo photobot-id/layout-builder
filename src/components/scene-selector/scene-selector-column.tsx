@@ -36,7 +36,7 @@ export default function SceneSelectorColumn(props: Props) {
             }}
           >
             <SceneSelectorItem
-              frame=""
+              frame={props.frame}
               isLandscape={isLandscape}
               height={itemHeight}
             />

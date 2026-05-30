@@ -16,7 +16,7 @@ const BlurView = Animated.createAnimatedComponent(_BlurView);
 type Props = {
   scenes: SceneSelectorProp[];
   position?: "LEFT" | "RIGHT" | "CENTER";
-  orientation?: "LEFT" | "RIGHT" | "CENTER";
+  mode?: "LEFT" | "RIGHT" | "CENTER";
   size?: "SMALL" | "MEDIUM" | "LARGE";
   frame: string;
 };
@@ -28,9 +28,9 @@ const getConfig = (VIEW_WIDTH: number, VIEW_HEIGHT: number) => {
   
   return {
     SMALL: {
-      parallaxOffset: (orientation: Props["orientation"]) => {
+      parallaxOffset: (mode: Props["mode"]) => {
         const pOffset =
-          orientation === "CENTER"
+          mode === "CENTER"
             ? VIEW_HEIGHT * 0.024305556328208
             : VIEW_HEIGHT * 0.052916668984625;
         return pOffset + -VIEW_HEIGHT * 0.018611112656417;
@@ -56,9 +56,9 @@ const getConfig = (VIEW_WIDTH: number, VIEW_HEIGHT: number) => {
       },
     },
     MEDIUM: {
-      parallaxOffset: (orientation: Props["orientation"]) => {
+      parallaxOffset: (mode: Props["mode"]) => {
         const pOffset =
-          orientation === "CENTER"
+          mode === "CENTER"
             ? VIEW_HEIGHT * 0.024305556328208
             : VIEW_HEIGHT * 0.052916668984625;
         return pOffset + -VIEW_HEIGHT * 0.018611112656417;
@@ -85,9 +85,9 @@ const getConfig = (VIEW_WIDTH: number, VIEW_HEIGHT: number) => {
     },
     LARGE: {
       // This handles your 'default' or a specific Large case
-      parallaxOffset: (orientation: Props["orientation"]) => {
+      parallaxOffset: (mode: Props["mode"]) => {
         const pOffset =
-          orientation === "CENTER"
+          mode === "CENTER"
             ? VIEW_HEIGHT * 0.024305556328208
             : VIEW_HEIGHT * 0.052916668984625;
         return pOffset + -VIEW_HEIGHT * 0.018611112656417;
@@ -161,7 +161,7 @@ export default function SceneSelectorParalaxVertical(props: Props) {
 
 function SceneSelectorParalaxVerticalContainer({
   size = "MEDIUM",
-  orientation = "LEFT",
+  mode = "LEFT",
   position = "LEFT",
   scenes,
   CONFIG,
@@ -175,8 +175,8 @@ function SceneSelectorParalaxVerticalContainer({
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const config = CONFIG[size] || CONFIG.LARGE;
-  const parallaxScrollingOffset = config.parallaxOffset(orientation);
-  const offset = config.offsets[orientation][position];
+  const parallaxScrollingOffset = config.parallaxOffset(mode);
+  const offset = config.offsets[mode][position];
 
   const scaleFactor = config.scale;
   const CARAOSEL_WIDTH = viewWidth / 2;
@@ -230,16 +230,16 @@ function SceneSelectorParalaxVerticalContainer({
             vertical: true,
           },
           {
-            parallaxScrollingScale: orientation === "CENTER" ? 1 : 0.8,
+            parallaxScrollingScale: mode === "CENTER" ? 1 : 0.8,
             parallaxAdjacentItemScale:
-              orientation === "CENTER" ? 0.7 : size === "SMALL" ? 0.7 : 0.8,
+              mode === "CENTER" ? 0.7 : size === "SMALL" ? 0.7 : 0.8,
             parallaxScrollingOffset: parallaxScrollingOffset,
             parallaxScrollingCurve:
               (size === "SMALL"
                 ? viewWidth * 0.14583333796925
                 : viewWidth * 0.194444450625667) *
-              (orientation === "LEFT" ? -1 : 1),
-            center: orientation === "CENTER",
+              (mode === "LEFT" ? -1 : 1),
+            center: mode === "CENTER",
           },
         )}
         vertical
