@@ -36,7 +36,7 @@ enum AspectRatio {
 
 export default function Preview(props: PreviewProps) {
   const [currentTab, setCurrentTab] = useState<"QR_CODE" | "WHATSAPP">(
-    "WHATSAPP",
+    "QR_CODE",
   );
   const theme = useTheme();
   return (
