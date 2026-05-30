@@ -39,13 +39,6 @@ export default function Preview(props: PreviewProps) {
     "WHATSAPP",
   );
   const theme = useTheme();
-  const [assets] = useAssets([
-    require("@assets/images/scene-default-landscape.png"),
-    require("@assets/images/scene-default.png"),
-  ]);
-  if (!assets) {
-    return null;
-  }
   return (
     <View style={{ flex: 1, padding: 40, paddingTop: 150, gap: 20, flexDirection: props.orientation === "LANDSCAPE" ? "row" : "column" }}>
       <View
@@ -66,9 +59,9 @@ export default function Preview(props: PreviewProps) {
         >
           <Image
             source={
-              (props.cameraOrientation === "PORTRAIT"
-                ? assets[1]
-                : assets[0]) as any
+              props.cameraOrientation === "PORTRAIT"
+                ? {uri: "https://static.wixstatic.com/media/a95a81_b3f4a1644f324f798fe6544f9cc16c09~mv2.png"}
+                : {uri: "https://static.wixstatic.com/media/a95a81_cdcf745ad47641fead9bb6231c14572d~mv2.png"}
             }
             resizeMode="cover"
             style={{

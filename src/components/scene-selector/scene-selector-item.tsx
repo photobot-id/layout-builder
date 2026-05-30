@@ -1,7 +1,5 @@
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import React, { PropsWithChildren } from "react";
-import { useAssets } from "expo-asset";
-import { ImageSourcePropType } from "react-native";
 
 type Props = {
   height?: number;
@@ -13,16 +11,7 @@ const SceneSelectorItem: React.FC<PropsWithChildren<Props>> = ({
   height = 200,
   isLandscape = false,
   ...props
-}) => {
-  const [assets] = useAssets([
-    require("@assets/images/scene-default-landscape.png"),
-    require("@assets/images/scene-default.png"),
-  ]);
-
-  if (!assets) {
-    return null; // or <ActivityIndicator />
-  }
-  
+}) => {  
   return (
     <Pressable
       style={[styles.container, { height: height, borderRadius: 0.1 * height }]}
@@ -39,7 +28,7 @@ const SceneSelectorItem: React.FC<PropsWithChildren<Props>> = ({
           ]}
         >
           <Image
-            source={(isLandscape ? assets[0] : assets[1]) as ImageSourcePropType}
+            source={(isLandscape ? {uri: "https://static.wixstatic.com/media/a95a81_cdcf745ad47641fead9bb6231c14572d~mv2.png"} : {uri: "https://static.wixstatic.com/media/a95a81_b3f4a1644f324f798fe6544f9cc16c09~mv2.png"})}
             style={styles.thumbnail}
             resizeMode="cover"
           />
