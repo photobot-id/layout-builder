@@ -25,7 +25,6 @@ export default function App() {
   useEffect(() => {
     const handleMessage = async (e: MessageEvent<MessageProps>) => {
       if (e.data.source === "layout-builder-page") {
-        console.log("RUN UPDATE UI", e.data.config);
         setConfigs({page: e.data.page, ...e.data.config});
         setUseDarkTheme(e.data.config.useDarkTheme);
         setThemeColor(e.data.config.themeColors);
